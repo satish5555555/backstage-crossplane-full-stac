@@ -1,0 +1,28 @@
+{
+  "realm": "platform",
+  "enabled": true,
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "email": "admin@example.local"
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "backstage",
+      "enabled": true,
+      "publicClient": true,
+      "redirectUris": [
+        "*"
+      ]
+    }
+  ]
+}

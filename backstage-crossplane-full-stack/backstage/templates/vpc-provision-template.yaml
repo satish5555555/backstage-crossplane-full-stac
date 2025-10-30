@@ -1,0 +1,31 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: vpc-provision
+  title: Provision AWS VPC (Crossplane)
+  description: Scaffold an entity that provisions a VPC using Crossplane Composition
+spec:
+  owner: platform-team
+  parameters:
+    - title: VPC name
+      type: string
+      name: name
+    - title: CIDR
+      type: string
+      name: cidr
+  steps:
+    - id: create-composite
+      name: Create CompositeVPC
+      action: fetch:plain
+      input:
+        plain: |
+          apiVersion: xinfra.example.org/v1
+          kind: CompositeVPC
+          metadata:
+            name: ${ { parameters.name } }
+          spec:
+            forProvider:
+              cidrBlock: "${ { parameters.cidr } }"
+              region: "us-east-1"
+            compositionRef:
+              name: vpc.aws.xinfra.example.org

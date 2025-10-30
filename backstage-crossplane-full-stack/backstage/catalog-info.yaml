@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: platform-poc
+  description: Platform POC components catalog
+spec:
+  type: service
+  owner: platform-team

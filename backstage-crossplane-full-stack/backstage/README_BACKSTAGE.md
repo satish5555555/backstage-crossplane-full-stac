@@ -1,0 +1,1 @@
+Instructions: scaffold Backstage with npx create-backstage-app, then copy these templates into the new app and register them in the catalog.

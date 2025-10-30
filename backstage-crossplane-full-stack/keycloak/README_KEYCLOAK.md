@@ -1,0 +1,1 @@
+Keycloak: realm 'platform' included as keycloak-realm-platform.json. Import using admin CLI or via UI if desired. Default admin/admin for demo only.

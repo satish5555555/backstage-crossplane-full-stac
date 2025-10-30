@@ -1,0 +1,15 @@
+flowchart LR
+  UI[Simple UI http://localhost:9090]
+  UI -->|POST /provision| Backend[Express Backend]
+  Backend -->|kubectl apply CompositeVPC| K8s[Kind Cluster in Podman (port 9090)]
+  subgraph K8sCluster
+    CP[Crossplane Controller]
+    CR[CompositeVPC CR]
+    CP -->|provider-aws| AWS[AWS Cloud]
+    Argo[Argo CD] -->|sync| Git[Git Repo]
+    Prom[Prometheus] --> Graf[Grafana]
+    Keycloak --> Backstage
+  end
+  CR --> CP
+  UI --> Backstage
+  Backstage -->|Scaffolder| K8s

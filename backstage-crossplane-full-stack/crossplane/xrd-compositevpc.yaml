@@ -1,0 +1,32 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: compositevpcs.xinfra.example.org
+spec:
+  group: xinfra.example.org
+  names:
+    kind: CompositeVPC
+    plural: compositevpcs
+  claimNames:
+    kind: VPC
+    plural: vpcs
+  connectionSecretKeys:
+    - endpoint
+  versions:
+    - name: v1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                forProvider:
+                  type: object
+                  properties:
+                    cidrBlock:
+                      type: string
+                    region:
+                      type: string

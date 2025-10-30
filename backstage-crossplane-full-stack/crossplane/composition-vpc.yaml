@@ -1,0 +1,33 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: vpc.aws.xinfra.example.org
+spec:
+  compositeTypeRef:
+    apiVersion: xinfra.example.org/v1
+    kind: CompositeVPC
+  pipeline:
+    - step: render-vpc
+      functionRef:
+        name: crossplane-contrib-function-patch-and-transform
+      input:
+        apiVersion: xinfra.example.org/v1
+        kind: CompositeVPC
+        resources:
+          - name: vpc
+            base:
+              apiVersion: ec2.aws.crossplane.io/v1beta1
+              kind: VPC
+              spec:
+                forProvider:
+                  cidrBlock: "10.100.0.0/16"
+                  enableDnsSupport: true
+                  enableDnsHostNames: true
+                providerConfigRef:
+                  name: aws-provider
+            patches:
+              - fromFieldPath: "spec.forProvider.cidrBlock"
+                toFieldPath: "spec.forProvider.cidrBlock"
+    - step: mark-ready
+      functionRef:
+        name: crossplane-contrib-function-auto-ready
