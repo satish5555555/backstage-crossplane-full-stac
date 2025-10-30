@@ -1,0 +1,10 @@
+apiVersion: xinfra.example.org/v1
+kind: CompositeVPC
+metadata:
+  name: demo-vpc
+spec:
+  forProvider:
+    cidrBlock: "10.50.0.0/16"
+    region: "us-east-1"
+  compositionRef:
+    name: vpc.aws.xinfra.example.org
